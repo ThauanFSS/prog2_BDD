@@ -1,0 +1,341 @@
+<GerenciaTelas>:
+    TelaInicial:
+    CadastroDepartamento:
+    ListarDepartamentos:
+    CadastroColaborador:
+    ListarColaboradores:
+
+<TelaInicial>:
+    name: 'TelaInicial'
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        canvas:
+            Rectangle:
+                source: 'Logo.png'
+                pos: root.pos
+                size: self.size
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint_y: None
+            height: 200
+            size_hint_x: .5
+            Label:
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, .8
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+                text: "DEPARTAMENTOS"
+                color: [0,0,0]
+                font_size: "18sp"
+            Button:
+                on_release: app.root.tela_cadastro_departamento(self)
+                text: 'Cadastrar'
+
+            Button:
+                on_release: app.root.tela_listar_departamento()
+                text: 'Listar Departamentos'
+            Label:
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, .8
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+                text: "COLABORADORES"
+                font_size: "18sp"
+                color: [0,0,0]
+
+            Button:
+                on_release: app.root.tela_cadastro_colaborador()
+                text: 'Cadastrar'
+
+            Button:
+                on_release: app.root.tela_listar_colaborador()
+                text: 'Listar Colaborador'
+
+# termino da telaInicial
+
+<CadastroDepartamento>:
+    name: 'CadastroDepartamento'
+
+ #variáveis globais:
+    lbl_id_departamento: lblId
+    txi_nome: inputNome
+    bt_cad_atual: btCadAtual
+
+
+    AnchorLayout:
+        id: interno
+        anchor_x: 'center'
+        anchor_y: 'center'
+        BoxLayout:
+            id: interno1
+            orientation: 'vertical'
+            size_hint: [0.7, 1]
+            canvas:
+                Color:
+                    rgba: .30, .25, .1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                text: 'ID:'
+                size_hint: [1,.25]
+
+            Label:
+                id: lblId
+                color:[0,0,0,.8]
+                size_hint: [1, .15]
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, .6
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+            Label:
+                text: "Nome:"
+                size_hint: [1, .25]
+
+            TextInput:
+                id: inputNome
+                hint_text: 'Informe seu nome'
+                size_hint: [1, .15]
+                multiline: False
+
+            GridLayout:
+                cols: 2
+                size_hint: [1, 0.25]
+                Button:
+                    id: btCadAtual
+                    on_release: app.root.cadastrar_atualizar()
+                    text: 'Cadastrar'
+                    size_hint: [1, 0.25]
+
+                Button:
+                    on_release: app.root.tela_inicial()
+                    text: 'Tela Inicial'
+                    size_hint: [1, 0.25]
+
+<ListarDepartamentos>:
+    name: 'ListarDepartamentos'
+
+    #variáveis
+    id_departamento: inputId
+    col_id: colId
+    col_nome: colNome
+    lbl_atualizar: lblAtual
+    lbl_excluir: lblExcluir
+
+    BoxLayout:
+        orientation: 'vertical'
+        canvas:
+            Color:
+                rgba: .30, .25, .1, 1
+            Rectangle:
+                pos: self.pos
+                size: self.size
+        Label:
+            text: 'Pesquisar Departamentos:'
+            font_size: '18sp'
+            size_hint_y: None
+            height: '50dp'
+
+        GridLayout:
+            cols: 3
+            size_hint_y: None
+            height: '30dp'
+            size_hint_x: .5
+
+            Label:
+                text:'Id'
+
+            TextInput:
+                id: inputId
+                hint_text: 'Id para pesquisa'
+                size_hint: [1, 1]
+                multiline: False
+
+            Button:
+                on_release: app.root.buscar_departamentos()
+                text: 'Pesquisar...'
+                size_hint: [1, 1]
+
+        GridLayout:
+            id: listaDepartamentos
+            cols: 5
+            size_hint_y: None
+            height: '400dp'
+            canvas:
+                Color:
+                    rgba: .80, .69, .58, .6
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                id: colId
+                text: 'Id'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .2
+                color: [0,0,0,1]
+
+            Label:
+                id: colNome
+                text: 'Nome'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .6
+                color: [0,0,0,1]
+
+            Label:
+                id: lblAtual
+                text: 'UPDATE'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .15
+                color: [0,0,0,1]
+            Label:
+                id: lblExcluir
+                text: 'DELETE'
+                size_hint_y: None
+                height: '30dp'
+                size_hint_x: .15
+                color: [0,0,0,1]
+
+
+        AnchorLayout:
+            id: interno
+            anchor_x: 'center'
+            anchor_y: 'center'
+            GridLayout:
+                cols: 2
+
+                Button:
+                    on_release: app.root.tela_inicial()
+                    text: 'Tela Inicial'
+                    size_hint_y: .5
+                    size_hint_x: .3
+
+<CadastroColaborador>:
+    name: 'CadastroColaborador'
+
+    #variáveis globais
+    lbl_id: lblId
+    txi_nome: txtNome
+    txi_endereco: txtEndereco
+    txi_sexo: txtSexo
+    txi_nasc: txtNasc
+    txi_salario: txtSalario
+    sp_departamento: spDepartamento
+    bt_cad_atual: btCadAtualColab
+
+    AnchorLayout:
+        anchor_x: 'center'
+        anchor_y: 'center'
+        BoxLayout:
+            orientation: 'vertical'
+            size_hint: [0.7, .8]
+            canvas:
+                Color:
+                    rgba: .30, .25, .1, 1
+                Rectangle:
+                    pos: self.pos
+                    size: self.size
+            Label:
+                text: 'ID:'
+                size_hint: [1,.25]
+
+            Label:
+                id: lblId
+                color:[0,0,0,.8]
+                size_hint: [1, .15]
+                canvas.before:
+                    Color:
+                        rgba: 1, 1, 1, .6
+                    Rectangle:
+                        pos: self.pos
+                        size: self.size
+
+            Label:
+                text: "Nome:"
+                size_hint: [1, .25]
+
+            TextInput:
+                id: txtNome
+                hint_text: 'Nome do aluno'
+                size_hint: [1, .15]
+                multiline: False
+
+            Label:
+                text: "Endereco:"
+                size_hint: [1, .25]
+
+            TextInput:
+                id: txtEndereco
+                hint_text: 'Endereco do colaborador'
+                size_hint: [1, .15]
+                multiline: False
+
+            Label:
+                text: "Sexo:"
+                size_hint: [1, .25]
+
+            TextInput:
+                id: txtSexo
+                hint_text: 'Sexo'
+                size_hint: [1, .15]
+                multiline: False
+
+            Label:
+                text: 'Data Nascimento:'
+                size_hint: [1, .25]
+            TextInput:
+                id: txtNasc
+                hint_text: 'dd/mm/aaaa'
+                size_hint: [1, .15]
+                multiline: False
+
+            Label:
+                text: 'Salario:'
+                size_hint: [1, .25]
+            TextInput:
+                id: txtSalario
+                hint_text: '9.999,99'
+                size_hint: [1, .15]
+                multiline: False
+
+            Label:
+                text: 'Departamento:'
+                size_hint: [1, .25]
+
+            Spinner:
+                id: spDepartamento
+                text: 'Selecione...'
+                size_hint: [1,.15]
+                height: "15dp"
+                background_color:(0,0,0,.5)
+                color: [1,1,1,1]
+
+            GridLayout:
+                cols: 2
+                size_hint: [1, 0.25]
+                padding : [0,20,0,0]
+
+                Button:
+                    id: btCadAtualColab
+                    on_release: app.root.cadastrar_atualizar_colaborador()
+                    text: 'Cadastrar'
+                    size_hint: [1, 0.25]
+
+                Button:
+                    on_release: app.root.tela_inicial()
+                    text: 'Tela Inicial'
+                    size_hint: [1, 0.25]
+
+<ListarColaboradores>:
+    name: 'ListarColaboradores'
